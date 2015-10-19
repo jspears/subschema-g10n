@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var join = path.join.bind(path, __dirname);
+require('es6-promise').polyfill();
 module.exports = {
     devtool: 'eval',
     devServer: {

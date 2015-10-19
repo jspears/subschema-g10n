@@ -33,6 +33,11 @@ module.exports = function subschema$loader(source) {
                     "style": "currency",
                     "currency": "USD",
                     "minimumFractionDigits": 2
+                },
+                "currency":{
+                    "style": "currency",
+                    "currency":"USD",
+                    "minimumFractionDigits": 2
                 }
             },
             "relative": {
@@ -43,7 +48,7 @@ module.exports = function subschema$loader(source) {
             }
         }
     };
-    //console.log('schema', JSON.stringify(schema));
+    console.log('schema', JSON.stringify(schema, null, '\t'));
 
     this.value = [schema];
     return "module.exports = " + JSON.stringify(schema, undefined, "\t") + ";";

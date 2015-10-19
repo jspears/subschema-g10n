@@ -2,14 +2,16 @@
   "schema": {
     "name": {
       "type": "Text",
-      "title": "{name} took {numPhotos, plural,\n  =0 {no photos}\n  =1 {one photo}\n  other {# photos}\n} on {takenDate, date, long}.\n"
+      "title": "{name} took {numPhotos, plural,\n  =0 {no photos}\n  =1 {one photo}\n  other {# photos}\n} on {takenDate, date, long}. They cost {amount, number, currency}\n"
     },
     "numPhotos": "Number",
-    "takenDate": "Date"
+    "takenDate": "Date",
+    "amount":"Number"
   },
   "fields": [
     "name",
     "numPhotos",
-    "takenDate"
+    "takenDate",
+    "amount"
   ]
 }

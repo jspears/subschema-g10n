@@ -4,7 +4,6 @@ var Form = form;
 import schema from './app.subschema.json';
 
 loader.addType('ContentWrapper', require('../src/G10NContent.jsx'));
-loader.addTemplate('EditorTemplate', require('../src/G10NEditorTemplate.jsx'));
 /*
  <FormattedMessage
  message={this.getIntlMessage('photos')}
@@ -14,7 +13,9 @@ loader.addTemplate('EditorTemplate', require('../src/G10NEditorTemplate.jsx'));
  */
 
 var value = {
-    name: 'Bob', numPhotos: 3, takenDate: new Date().toDateString()
+    name: 'Bob',
+    numPhotos: 3,
+    takenDate: Date.now()
 };
 export class App extends Component {
     static childContextTypes = {
