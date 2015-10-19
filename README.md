@@ -2,6 +2,7 @@ Subschema g10n
 ===
 Provide G10n to subschema, via format.js and friends.
 
+**Work in progress**
 
 ##Installation
 Basic node dependency installation

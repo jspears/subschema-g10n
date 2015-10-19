@@ -3,9 +3,10 @@ var isString = require('lodash/lang/isString');
 var isArray = require('lodash/lang/isArray');
 var isObject = require('lodash/lang/isObject');
 var map = require('lodash/collection/map');
-var {titlelize, toArray} = require('subschema/tutils.js');
+var tutils = require('subschema/src/tutils.js');
 var defaults = require('lodash/object/defaults');
-import parser from 'intl-messageformat-parser';
+var titlelize = tutils.titlelize, toArray = tutils.toArray;
+var parser = require('intl-messageformat-parser');
 
 function empty(v) {
     return !(v == null);

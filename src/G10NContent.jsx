@@ -3,9 +3,9 @@ import ContentWrapper from 'subschema/types/ContentWrapper.jsx';
 import ValueManagerListenerMixin from 'subschema/ValueManagerListenerMixin';
 import Compiler from 'intl-messageformat/src/compiler.js'
 import {FormattedMessage, IntlMixin} from 'react-intl';
-import parser from 'intl-messageformat-parser';
 import map from 'lodash/collection/map';
 import escape from 'lodash/string/escape';
+import isString from 'lodash/lang/isString';
 
 function empty(v) {
     return !(v == null)
@@ -48,13 +48,13 @@ var G10NContent = React.createClass({
         this._values = this.substitute(content);
     },
     render() {
-        var {type, content, children, fieldAttrs, context, ...props} = this.props, Type
+        var {type, content, field, children, fieldAttrs, context, ...props} = this.props, Type
+        var pf = field || props, g10key = pf.g10n && (pf.g10n.key || pf.g10n);
 
         if (React.DOM[type]) {
-            /*props.dangerouslySetInnerHTML = {
-             __html: this._value(this.state)
-             };*/
-            return <FormattedMessage key='content' ref='fmt' message={content} {...this.state}/>;
+  //          var key =
+            return <FormattedMessage key='content' ref='fmt' message={this.getIntlMessage(g10key)} {...this.state}/>;
+//            return <div {...props}/>
         } else if (this.props.loader) {
             Type = this.props.loader.loadType(type);
         }
