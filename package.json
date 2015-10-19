@@ -7,7 +7,7 @@
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "lint": "eslint src",
-    "test": "karma start --single-run --browsers Firefox",
+    "test": "mocha ./**-test.js",
     "karma": "karma start --no-single-run --colors --auto-watch"
   },
   "webpack":"./subschema-loader.js",

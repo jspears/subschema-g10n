@@ -1,3 +1,6 @@
+var chai = require('chai');
+var expect = chai.expect;
+//var should = chai.should();
 var Schema2Msgs = require('./Schema2Msgs');
 describe('schema2msgs', function () {
     it.only('should extract messages from a simple schema', function () {
@@ -44,6 +47,7 @@ describe('schema2msgs', function () {
                 "hello": {
                     "type": "World",
                     "title": {
+                        "content":"Hello",
                         "g10n": "schema2msgs.hello.title"
                     }
                 },
