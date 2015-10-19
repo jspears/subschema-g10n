@@ -3,7 +3,8 @@ import {form, loader } from 'subschema/index.jsx';
 var Form = form;
 import schema from './app.subschema.json';
 
-loader.addType('ContentWrapper', require('../src/G10NContent.jsx'));
+//loader.addType('ContentWrapper', require('subschema-g10n/src/G10NContent.jsx'));
+loader.addType('ContentWrapper', require('subschema-g10n/src/G10NEditor.jsx'));
 /*
  <FormattedMessage
  message={this.getIntlMessage('photos')}

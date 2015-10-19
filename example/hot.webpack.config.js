@@ -9,7 +9,7 @@ module.exports = {
     },
     entry: [
         'webpack-hot-middleware/client',
-        join('./public/index')
+        join('./public/index.jsx')
     ],
     output: {
         path: join('dist'),
@@ -22,7 +22,10 @@ module.exports = {
     ],
     resolve: {
         alias: {
-            'subschema': join('node_modules/subschema/src/')
+            'subschema': join('node_modules/subschema/src/'),
+            'subschema-g10n': join('../'),
+            'react':join('../node_modules/react'),
+            'lodash':join('../node_modules/lodash')
         },
         extensions: ["", ".webpack-loader.js", ".web-loader.js", ".loader.js", ".js", '.jsx']
     },
@@ -30,7 +33,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.subschema\.js(on)?$/,
-                loader: join('subschema-loader')
+                loader: 'subschema-g10n/subschema-loader'
             },
             {
                 test: /\.js(x)?$/,

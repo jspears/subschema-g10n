@@ -1,4 +1,4 @@
-var webpack = require('webpack'), path = require('path'), hot = require('./hot.webpack.config');
+var webpack = require('webpack'), path = require('path'), hot = require('./example/hot.webpack.config');
 
 module.exports = function (config) {
     config.set({

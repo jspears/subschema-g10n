@@ -1,9 +1,12 @@
 var Schema2Msgs = require('./src/Schema2Msgs.js');
+var loaderUtils = require("loader-utils");
 
 module.exports = function subschema$loader(source) {
     this.cacheable && this.cacheable();
+    var query = loaderUtils.parseQuery(this.query);
+    var interpolatedName = loaderUtils.interpolateName(this, query.name || '[name].properties', {content: false, regExp: "(.*)\\.subschema\\.js(on)?", });
     var schema = typeof source === "string" ? JSON.parse(source) : source;
-    var path = this.resource && this.resource.replace(process.cwd(), '').replace(/\.subschema\.js(on)?/, '').split('/').pop() || '';
+    var path = this.resource && this.resource.replace(process.cwd(), '').split('/').pop() || '';
 
     var s2m = new Schema2Msgs(schema, path || '');
     try {
@@ -34,9 +37,9 @@ module.exports = function subschema$loader(source) {
                     "currency": "USD",
                     "minimumFractionDigits": 2
                 },
-                "currency":{
+                "currency": {
                     "style": "currency",
-                    "currency":"USD",
+                    "currency": "USD",
                     "minimumFractionDigits": 2
                 }
             },

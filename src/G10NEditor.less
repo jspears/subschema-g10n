@@ -1,0 +1,27 @@
+.g10n-edit-mode {
+  outline: 2px solid yellow;
+  width: 100%;
+  display: inline-block;
+}
+.g10n-tools {
+  display: inline;
+  transform: translateY(-100%);
+  position: absolute;
+}
+.g10n-btn[input='cancel'] {
+  > span  {
+    display: none;
+  }
+}
+.g10n-btn[input='save'] {
+  > span  {
+    display: none;
+  }
+  content:before {
+    content:' ';
+
+  }
+}
+.g10n-edit-input {
+  width: 100%;
+}

@@ -2,7 +2,7 @@
   "schema": {
     "name": {
       "type": "Text",
-      "title": "{name} took {numPhotos, plural,\n  =0 {no photos}\n  =1 {one photo}\n  other {# photos}\n} on {takenDate, date, long}. They cost {amount, number, currency}\n"
+      "title": "{name} took {numPhotos, plural,\n  =0 {no photos}\n  =1 {one photo}\n  other {# photos}\n} on {takenDate, date, long}. They cost {amount, number, USD}\n"
     },
     "numPhotos": "Number",
     "takenDate": "Date",
