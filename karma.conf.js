@@ -1,11 +1,11 @@
-var webpack = require('webpack'), path = require('path');
+var webpack = require('webpack'), path = require('path'), hot = require('./hot.webpack.config');
 
 module.exports = function (config) {
     config.set({
         browserNoActivityTimeout: 20000,
         browsers: ['Chrome'], //run in Chrome
         singleRun: true, //just run once by default
-        frameworks: ['mocha'], //use the mocha test framework
+        frameworks: ['mocha', 'chai'], //use the mocha test framework
         files: [
             './karma.tests.js' //just load this file
         ],
@@ -24,33 +24,9 @@ module.exports = function (config) {
                 colors: true,
                 reasons: true
             },
-            module: {
-                loaders: [
-                    {
-                        test: /\.js(x)?$/,
-                        excludes:/node_modules/,
-                        includes:[
-                            '~/node_modules/react',
-                            '~/node_modules/react-router',
-                            '~/node_modules/react-bootstrap',
-                            '~/node_modules/subschema-builder'
+            module: hot.module,
 
-                        ],
-                        loader: 'babel-loader?stage=0'
-                    },
-                    {
-                        test: /\.less$/,
-                        loader: 'style!css!less-loader'
-                    }
-                ]
-            },
-
-            resolve: {
-                alias: {
-                    'subschema': path.join(__dirname, 'src/index.jsx')
-
-                }
-            },
+            resolve: hot.resolve,
 
             plugins: [
                 new webpack.DefinePlugin({
