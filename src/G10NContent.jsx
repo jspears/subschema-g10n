@@ -6,7 +6,7 @@ import {FormattedMessage, IntlMixin} from 'react-intl';
 import map from 'lodash/collection/map';
 import escape from 'lodash/string/escape';
 import isString from 'lodash/lang/isString';
-
+import _get from 'lodash/object/get';
 function empty(v) {
     return !(v == null)
 }
@@ -39,7 +39,7 @@ var G10NContent = React.createClass({
     },
     rebuildValue(content){
         this._componentListeners.forEach((v)=>v.remove());
-        this.props.g10n && this.props.g10n.listen.forEach(this.register);
+        _get(this.props, 'g10n.listen', []).forEach(this.register);
     },
     g10n(g10Key){
         var messages = this.props.messages || this.context.messages;

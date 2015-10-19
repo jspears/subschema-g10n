@@ -100,6 +100,7 @@ Schema2Messages.prototype._handleContent = function Schema2Messages$_handleConte
         if (this.g10n) {
             //if it has a g10n, then make sure its listen is updated to the latest.
             if (obj[key].g10n) {
+                obj[key].content = content;
                 obj[key].g10n = this._resolveUpdate(obj[key].g10n);
             } else {
                 this.update(path, content);
@@ -153,11 +154,13 @@ Schema2Messages.prototype._handleValidators = function Schema2Messages$_handleVa
 Schema2Messages.prototype._handleSchema = function Schema2Messages$_handleSchema(path, schema, key, obj) {
     var currentPath = join(path, key);
     if (isString(schema)) {
-        this.update(join(currentPath, 'title'), titlelize(key));
+        var title = titlelize(key);
+        this.update(join(currentPath, 'title'), title);
         if (this.g10n && key) {
             obj[key] = {
                 type: schema,
                 title: {
+                    content: title,
                     g10n: this._resolveUpdate(join(currentPath, 'title'))
                 }
             }

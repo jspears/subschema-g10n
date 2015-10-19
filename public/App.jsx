@@ -15,7 +15,8 @@ loader.addType('ContentWrapper', require('../src/G10NContent.jsx'));
 var value = {
     name: 'Bob',
     numPhotos: 3,
-    takenDate: Date.now()
+    takenDate: Date.now(),
+    amount:100
 };
 export class App extends Component {
     static childContextTypes = {

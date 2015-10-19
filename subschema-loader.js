@@ -51,6 +51,6 @@ module.exports = function subschema$loader(source) {
     console.log('schema', JSON.stringify(schema, null, '\t'));
 
     this.value = [schema];
-    return "module.exports = " + JSON.stringify(schema, undefined, "\t") + ";";
+    return "module.exports = " + JSON.stringify(schema, null, "\t") + ";";
 
 }
