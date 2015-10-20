@@ -33,7 +33,9 @@ module.exports = {
         loaders: [
             {
                 test: /\.subschema\.js(on)?$/,
-                loader: 'subschema-g10n/subschema-loader'
+              // This is more realistic - but for sanity.
+              //  loader: 'subschema-g10n/subschema-loader',
+                loader:join('../subschema-loader')
             },
             {
                 test: /\.js(x)?$/,

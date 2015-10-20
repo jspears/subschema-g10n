@@ -33,7 +33,7 @@ export class App extends Component {
     render() {
         return (
             <div>
-                Hello from this App
+                <h1>Subschema Globalization Example app</h1>
                 <Form schema={schema} value={value} loader={loader}/>
             </div>
         );

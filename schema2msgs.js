@@ -29,18 +29,18 @@ function join() {
  * @param str
  * @returns {*}
  */
-function dotKludge(str) {
+function dotKludge(str, repl) {
+    repl = repl || ':';
     kre.index = 0;
 
+
     var ret = str.replace(kre, function (k, k1, k2, k3, k4) {
-        return k1.replace(dre, ':') + k2.replace(dre, ':') + k3.replace(dre, ':');
+        return k1.replace(dre, repl) + k2.replace(dre, ':') + k3.replace(dre, repl);
     });
-    console.log(ret);
     return ret;
-    //    /\{^[\r\t\n]([}\r\t\n,]*)/g.exec(str)
 }
 function Schema2Messages(schema, path, g10n) {
-    this.schema = schema.schema || schema;
+    this.schema = schema.schema ? schema : {schema: schema};
     this.path = path || '';
     this.g10n = g10n === false ? false : g10n || {file: path};
     this._messages = {}
@@ -196,12 +196,59 @@ Schema2Messages.prototype._handleSchema = function Schema2Messages$_handleSchema
     }
 }
 
-Schema2Messages.prototype.messages = function Schema2Messages$messages() {
-    if (isString(this.schema)) {
+Schema2Messages.prototype.process = function Schema2Messages$messages() {
+    if (isString(this.schema.schema)) {
         return this._messages;
     }
-    each(this.schema, this._handleSchema.bind(this, this.path));
+    each(this.schema.schema, this._handleSchema.bind(this, this.path));
     return this._messages;
+}
+
+Schema2Messages.prototype.toJSON = function Schema2Messages$toJSON() {
+    this.process();
+    var messages = {};
+    each(this._messages, function (v, k) {
+        messages[k] = dotKludge(v, '.');
+    });
+
+    this.schema.g10n = {
+        locales: this.g10n.locales,
+        messages: messages,
+        formats: {
+            "date": {
+                "short": {
+                    "day": "numeric",
+                    "month": "long",
+                    "year": "numeric"
+                }
+            },
+            "time": {
+                "hhmm": {
+                    "hour": "numeric",
+                    "minute": "numeric"
+                }
+            },
+            "number": {
+                "USD": {
+                    "style": "currency",
+                    "currency": "USD",
+                    "minimumFractionDigits": 2
+                },
+                "currency": {
+                    "style": "currency",
+                    "currency": "USD",
+                    "minimumFractionDigits": 2
+                }
+            },
+            "relative": {
+                "hours": {
+                    "units": "hour",
+                    "style": "numeric"
+                }
+            }
+        }
+    };
+    return this.schema;
 }
 
 

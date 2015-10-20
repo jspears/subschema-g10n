@@ -1,58 +1,17 @@
-var Schema2Msgs = require('./src/Schema2Msgs.js');
+var Schema2Msgs = require('./schema2msgs');
 var loaderUtils = require("loader-utils");
 
 module.exports = function subschema$loader(source) {
     this.cacheable && this.cacheable();
     var query = loaderUtils.parseQuery(this.query);
-    var interpolatedName = loaderUtils.interpolateName(this, query.name || '[name].properties', {content: false, regExp: "(.*)\\.subschema\\.js(on)?", });
+    var path = loaderUtils.interpolateName(this, query.name || '[name].properties', {
+        content: false,
+        regExp: "(.*)\\.subschema\\.js(on)?",
+    });
     var schema = typeof source === "string" ? JSON.parse(source) : source;
-    var path = this.resource && this.resource.replace(process.cwd(), '').split('/').pop() || '';
 
-    var s2m = new Schema2Msgs(schema, path || '');
-    try {
-        var messages = s2m.messages();
-    } catch (e) {
-        console.log('error', e);
-    }
-    schema.g10n = {
-        locales: "en-US",
-        messages: messages,
-        formats: {
-            "date": {
-                "short": {
-                    "day": "numeric",
-                    "month": "long",
-                    "year": "numeric"
-                }
-            },
-            "time": {
-                "hhmm": {
-                    "hour": "numeric",
-                    "minute": "numeric"
-                }
-            },
-            "number": {
-                "USD": {
-                    "style": "currency",
-                    "currency": "USD",
-                    "minimumFractionDigits": 2
-                },
-                "currency": {
-                    "style": "currency",
-                    "currency": "USD",
-                    "minimumFractionDigits": 2
-                }
-            },
-            "relative": {
-                "hours": {
-                    "units": "hour",
-                    "style": "numeric"
-                }
-            }
-        }
-    };
-    console.log('schema', JSON.stringify(schema, null, '\t'));
-
+    var s2m = new Schema2Msgs(schema, path || '', {locales: query.locales || 'US-en', 'localeDir':query.localeDir || 'locales'});
+    schema = s2m.toJSON();
     this.value = [schema];
     return "module.exports = " + JSON.stringify(schema, null, "\t") + ";";
 
